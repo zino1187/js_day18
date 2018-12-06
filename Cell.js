@@ -29,6 +29,11 @@ class Cell{
 		this.div.style.float="left";
 
 		this.container.appendChild(this.div);
+
+		//클릭이벤트 구현 
+		this.div.addEventListener("click", function(){
+			openBox();
+		});
 	}
 	tick(){
 		this.x=this.x+this.a*(this.targetX-this.x);

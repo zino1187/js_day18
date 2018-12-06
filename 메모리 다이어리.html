@@ -48,6 +48,7 @@
 	border:5px solid blue;
 	text-align:center;
 	padding-top:20px;
+	display:none; /*block 보이게*/
 }
 #box input,textarea{
 	border:3px solid orange;
@@ -67,6 +68,7 @@
 <script>
 var bt_prev, bt_next, title, content;
 var input_year, input_month, input_date, input_title,memo;
+var box;
 
 var dayArray=["Sun","Mon","Tue","Wed","Thur","Fri","Sat"];
 var cellArray=[];//생성된 셀들을 보관해 놓아야, 추후 날짜를 출력할
@@ -93,6 +95,7 @@ function init(){
 	bt_next=document.getElementById("bt_next");
 	title=document.getElementById("title");
 	content=document.getElementById("content");
+	box=document.getElementById("box");
 
 	setTitle();
 	createDay();
@@ -165,6 +168,14 @@ function next(){
 	setTitle();//제목변경
 	setText();//셀에 내용 변경
 }
+
+//안보이던 다이얼로그 박스 띄우기!!
+function openBox(){
+	box.style.display="block";//보이게
+}
+function closeBox(){
+	box.style.display="none";
+}
 addEventListener("load", function(){
 	init();
 });
@@ -188,7 +199,7 @@ addEventListener("load", function(){
 				<textarea placeholder="상세 내용 입력" id="memo"></textarea>	
 				<p/>
 				<button>등록</button>
-				<button>닫기</button>
+				<button onClick="closeBox()">닫기</button>
 			</div>
 		</div>
 	</div>
