@@ -52,10 +52,16 @@ function init(){
 	title=document.getElementById("title");
 	content=document.getElementById("content");
 
+	setTitle();
 	createDay();
 	createCell();
 	setText();
 }
+//달력의 제목 출력 
+function setTitle(){
+	title.innerText=obj.getFullYear()+"년 / "+(obj.getMonth()+1)+"월"
+}
+
 //요일 생성 
 function createDay(){
 	for(var i=0;i<dayArray.length;i++){
@@ -106,6 +112,12 @@ function setText(){
 	}
 }
 
+//다음 달 나오게 처리 
+function next(){
+	obj.setMonth(obj.getMonth()+1);//기존 객체조작
+	setTitle();//제목변경
+	setText();//셀에 내용 변경
+}
 addEventListener("load", function(){
 	init();
 });
@@ -116,7 +128,7 @@ addEventListener("load", function(){
 		<div class="up">
 			<div id="bt_prev">◀</div>
 			<div id="title">2018 /12</div>
-			<div id="bt_next">▶</div>
+			<div id="bt_next" onClick="next()">▶</div>
 		</div>	
 		<div id="content"></div>
 	</div>
