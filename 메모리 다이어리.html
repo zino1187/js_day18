@@ -54,10 +54,9 @@
 	border:3px solid orange;
 	width:85%;
 	height:40px;
+	font-size:18px;
 }
-#input_title{
-	
-}
+
 #memo{
 	height:120px;
 }
@@ -82,9 +81,10 @@ var holyday=[
 		"year":2018,
 		"month":5,
 		"number":13,
-		"msg":[
+		"msg":[{
 			"title":"점심미팅",
-			"detail":"거래 업체와의 저녁약속(매우중요)",
+			"detail":"거래 업체와의 저녁약속(매우중요)"
+			}
 		]
 	}
 	*/
@@ -98,6 +98,8 @@ function init(){
 	input_year=document.getElementById("input_year");
 	input_month=document.getElementById("input_month");
 	input_date=document.getElementById("input_date");
+	input_title=document.getElementById("input_title");
+	memo=document.getElementById("memo");
 
 	box=document.getElementById("box");
 
@@ -193,6 +195,24 @@ function openBox(dd){
 function closeBox(){
 	box.style.display="none";
 }
+
+//입력한 날짜의 정보를 json 동적변수로 할당하자!!!
+function regist(){
+	holyday.push({
+		"year":obj.getFullYear(),
+		"month":obj.getMonth(),
+		"number":input_date.value,
+		"msg":[
+				{
+					"title":input_title.value,
+					"detail":memo.value
+				}
+			]
+	});
+
+	closeBox();
+}
+
 addEventListener("load", function(){
 	init();
 });
@@ -215,7 +235,7 @@ addEventListener("load", function(){
 				<p/>
 				<textarea placeholder="상세 내용 입력" id="memo"></textarea>	
 				<p/>
-				<button>등록</button>
+				<button onClick="regist()">등록</button>
 				<button onClick="closeBox()">닫기</button>
 			</div>
 		</div>
