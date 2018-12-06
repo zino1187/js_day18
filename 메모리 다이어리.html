@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>메모리 다이어리</title>
+<style>
+.wrapper{
+	width:700px;
+	height:700px;
+	background:yellow;
+	margin:auto;
+}
+.up{
+	width:100%;
+	height:100px;
+}
+.up div{
+	float:left;
+}
+#title{
+	width:70%;
+	height:100%;
+	font-size:55px;
+	text-align:center;
+}
+#bt_prev, #bt_next{
+	width:15%;
+	height:100%;
+	background:dodgerblue;
+	border-radius:10%;
+	font-size:60px;
+	color:#fff;
+	text-align:center;
+}
+#content{
+	width:100%;
+	height:600px;
+	background:#000;
+}
+</style>
+</head>
+<body>
+	<div class="wrapper">
+		<div class="up">
+			<div id="bt_prev">◀</div>
+			<div id="title">2018 /12</div>
+			<div id="bt_next">▶</div>
+		</div>	
+		<div id="content"></div>
+	</div>
+</body>
+</html>
