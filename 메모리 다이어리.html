@@ -113,6 +113,11 @@ function setText(){
 }
 
 //다음 달 나오게 처리 
+function prev(){
+	obj.setMonth(obj.getMonth()-1);//기존 객체조작
+	setTitle();//제목변경
+	setText();//셀에 내용 변경
+}
 function next(){
 	obj.setMonth(obj.getMonth()+1);//기존 객체조작
 	setTitle();//제목변경
@@ -126,7 +131,7 @@ addEventListener("load", function(){
 <body>
 	<div class="wrapper">
 		<div class="up">
-			<div id="bt_prev">◀</div>
+			<div id="bt_prev" onClick="prev()">◀</div>
 			<div id="title">2018 /12</div>
 			<div id="bt_next" onClick="next()">▶</div>
 		</div>	
