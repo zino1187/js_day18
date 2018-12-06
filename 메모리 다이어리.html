@@ -95,12 +95,23 @@ function init(){
 	bt_next=document.getElementById("bt_next");
 	title=document.getElementById("title");
 	content=document.getElementById("content");
+	input_year=document.getElementById("input_year");
+	input_month=document.getElementById("input_month");
+	input_date=document.getElementById("input_date");
+
 	box=document.getElementById("box");
 
 	setTitle();
 	createDay();
 	createCell();
 	setText();
+
+	addEventListener("keydown", function(){
+		var key=event.keyCode;
+		if(key == 27){ //esc 키
+			closeBox();
+		}
+	});
 }
 //달력의 제목 출력 
 function setTitle(){
@@ -170,9 +181,15 @@ function next(){
 }
 
 //안보이던 다이얼로그 박스 띄우기!!
-function openBox(){
+function openBox(dd){
 	box.style.display="block";//보이게
+		
+	//지금 클릭한 날짜의 정보가 박스에 출력!!!
+	input_year.value=obj.getFullYear();
+	input_month.value=obj.getMonth()+1;
+	input_date.value=dd;
 }
+
 function closeBox(){
 	box.style.display="none";
 }
@@ -190,9 +207,9 @@ addEventListener("load", function(){
 		</div>	
 		<div id="content">
 			<div id="box">
-				<input type="text" value="2018" id="input_year" style="width:26%"/>
-				<input type="text" value="12" id="input_month" style="width:26%"/>
-				<input type="text" value="13" id="input_date" style="width:26%"/>
+				<input type="text" id="input_year" style="width:26%"/>
+				<input type="text" id="input_month" style="width:26%"/>
+				<input type="text" id="input_date" style="width:26%"/>
 				<p/>
 				<input type="text" placeholder="제목을 입력하세요" id="input_title"/>
 				<p/>

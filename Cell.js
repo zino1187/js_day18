@@ -31,8 +31,9 @@ class Cell{
 		this.container.appendChild(this.div);
 
 		//클릭이벤트 구현 
-		this.div.addEventListener("click", function(){
-			openBox();
+		this.div.addEventListener("click", ()=>{
+			//alert("저는 "+this.div.innerText+" 일 입니다");
+			openBox(this.div.innerText);
 		});
 	}
 	tick(){
