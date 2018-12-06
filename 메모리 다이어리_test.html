@@ -144,7 +144,7 @@ function setText(){
 				
 				//이번달의 마지막날에 도달하면, 날짜가 아닌 공백으로 처리
 				if(date <=lastDate){
-					text=date;
+					text=date+"<br/>";
 					
 					//json 데이터베이스 조회하기 
 					
@@ -155,7 +155,7 @@ function setText(){
 						if(json.year==obj.getFullYear() && json.month==obj.getMonth()){
 							if(json.number == date){
 								console.log("일치하는 날짜는 ", date);
-								text=text+json.msg[0].title;
+								text=text+json.msg[0].title+"<br/>";
 								//console.log(json.msg[0].title);
 							}
 						}
@@ -167,7 +167,7 @@ function setText(){
 			}else{
 				text="";
 			}
-			cellArray[cnt].div.innerText=text;	
+			cellArray[cnt].div.innerHTML=text;	
 			cnt++;
 		}
 	}

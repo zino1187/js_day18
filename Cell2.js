@@ -24,7 +24,7 @@ class Cell{
 		this.div.style.height=this.height+"px";
 		this.div.style.background=this.bg;
 		this.div.style.border=1+"px solid #000";
-		this.div.innerText=this.text;
+		this.div.innerHTML=this.text;
 		this.div.style.fontSize=20+"px";
 		this.div.style.float="left";
 
