@@ -18,11 +18,12 @@ class Cell{
 		/*
 		this.div.style.position="absolute";
 		this.div.style.left=this.x+"px";
-		this.div.style.top=this.x+"px";
+		this.div.style.top=this.y+"px";
 		*/
 		this.div.style.width=this.width+"px";
 		this.div.style.height=this.height+"px";
 		this.div.style.background=this.bg;
+		this.div.style.float="left";
 
 		this.container.appendChild(this.div);
 	}

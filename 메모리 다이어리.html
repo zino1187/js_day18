@@ -35,9 +35,29 @@
 #content{
 	width:100%;
 	height:600px;
-	background:#000;
 }
 </style>
+<script src="./Cell.js"></script>
+<script>
+var bt_prev, bt_next, title, content;
+var dayArray=["Sun","Mon","Tue","Wed","Thur","Fri","Sat"];
+
+function init(){
+	bt_prev=document.getElementById("bt_prev");
+	bt_next=document.getElementById("bt_next");
+	title=document.getElementById("title");
+	content=document.getElementById("content");
+}
+//요일 생성 
+function createDay(){
+	for(var i=0;i<7;i++){
+		var day=new Cell(content,0,0,98,98,0,0,0,0,"orange","월");
+	}
+}
+addEventListener("load", function(){
+	init();
+});
+</script>
 </head>
 <body>
 	<div class="wrapper">
