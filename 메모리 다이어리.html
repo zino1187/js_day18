@@ -47,11 +47,22 @@ function init(){
 	bt_next=document.getElementById("bt_next");
 	title=document.getElementById("title");
 	content=document.getElementById("content");
+
+	createDay();
+	createCell();
 }
 //요일 생성 
 function createDay(){
-	for(var i=0;i<7;i++){
-		var day=new Cell(content,0,0,98,98,0,0,0,0,"orange","월");
+	for(var i=0;i<dayArray.length;i++){
+		var day=new Cell(content,0,0,98,98,0,0,0,0,"orange",dayArray[i]);
+	}
+}
+
+function createCell(){
+	for(var a=0;a<6;a++){
+		for(var i=0;i<dayArray.length;i++){
+			var cell = new Cell(content,0,0,98,98,0,0,0,0,"#cceecc","a");
+		}
 	}
 }
 addEventListener("load", function(){
