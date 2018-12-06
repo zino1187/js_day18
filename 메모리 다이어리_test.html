@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>메모리 다이어리</title>
+<style>
+.wrapper{
+	width:700px;
+	height:700px;
+	background:yellow;
+	margin:auto;
+}
+.up{
+	width:100%;
+	height:100px;
+}
+.up div{
+	float:left;
+}
+#title{
+	width:70%;
+	height:100%;
+	font-size:55px;
+	text-align:center;
+}
+#bt_prev, #bt_next{
+	width:15%;
+	height:100%;
+	background:dodgerblue;
+	border-radius:10%;
+	font-size:60px;
+	color:#fff;
+	text-align:center;
+}
+#content{
+	width:100%;
+	height:600px;
+	position:relative;
+}
+#box{
+	width:70%;
+	height:70%;
+	position:absolute;
+	left:15%;
+	top:20%;
+	background:skyblue;
+	border-radius:5%;
+	border:5px solid blue;
+	display:none;
+	text-align:center;
+	padding-top:30px;
+}
+
+#input_title{
+	width:85%;
+	height:40px;
+	border:3px solid orange;
+}
+#memo{
+	width:85%;
+	height:200px;
+	border:3px solid orange;
+}
+
+</style>
+<script src="./Cell2.js"></script>
+<script src="./common.js"></script>
+<script>
+var bt_prev, bt_next, title, content,box,input_year, input_month, input_date;
+var dayArray=["Sun","Mon","Tue","Wed","Thur","Fri","Sat"];
+var cellArray=[];//생성된 셀들을 보관해 놓아야, 추후 날짜를 출력할
+						//한다거나 조건에 맞는 처리가 가능...
+var obj=new Date(); //현재 날짜 정보를 가진 Date 객체
+var holyday=[
+/*
+	{
+		"year":2018,
+		"month":11,
+		"number":5,
+		"msg":[
+			{
+				"title":"dfsfd",
+				"memo":"dsfsf"
+			}		
+		]
+	}
+*/
+];
+
+function init(){
+	bt_prev=document.getElementById("bt_prev");
+	bt_next=document.getElementById("bt_next");
+	title=document.getElementById("title");
+	content=document.getElementById("content");
+	box=document.getElementById("box");
+	input_year=document.getElementById("input_year");
+	input_month=document.getElementById("input_month");
+	input_date=document.getElementById("input_date");
+
+	setTitle();
+	createDay();
+	createCell();
+	setText();
+}
+//달력의 제목 출력 
+function setTitle(){
+	title.innerText=obj.getFullYear()+"년 / "+(obj.getMonth()+1)+"월"
+}
+
+//요일 생성 
+function createDay(){
+	for(var i=0;i<dayArray.length;i++){
+		var day=new Cell(content,0,0,98,98,0,0,0,0,"orange",dayArray[i]);
+	}
+}
+
+function createCell(){
+	var cnt=0; //셀의 순서를 매기기 위한 변수 
+	for(var a=0;a<6;a++){
+		for(var i=0;i<dayArray.length;i++){
+			var cell = new Cell(content,0,0,98,98,0,0,0,0,"#cceecc","");
+
+			cellArray.push(cell);
+		}
+	}
+}
+/*-----------------------------------------------------
+이미 생성된 셀을 대상으로 각 월마다 데이터를 출력해줄 함수
+ex) 5월 선택시 5월에 해당하는 날짜를 출력..
+-----------------------------------------------------*/
+function setText(){
+	var cnt=0; //각 셀을 순번을 매기기 위한 변수
+	var startDay=getStartDayOfMonth(obj.getFullYear(), obj.getMonth());//각 월이 몇요일부터 시작하는지 조사 
+	
+	var lastDate=getLastDateOfMonth(obj.getFullYear(), obj.getMonth());//해당 월의 마지막일..총일수
+
+	var date=0; //실제 날짜 정보를 담는 변수
+	var text; //공백 or 날짜를 담는 변수
+
+	for(var a=0;a<6;a++){
+		for(var i=0;i<dayArray.length;i++){
+			if(cnt>=startDay){
+				date++;
+				
+				//이번달의 마지막날에 도달하면, 날짜가 아닌 공백으로 처리
+				if(date <=lastDate){
+					text=date;
+					
+					//json 데이터베이스 조회하기 
+					
+					for(var k=0;k<holyday.length;k++){
+						//데이터베이스에 등록된 날짜와 현재 연,월이 일치한다면
+						var json=holyday[k];
+
+						if(json.year==obj.getFullYear() && json.month==obj.getMonth()){
+							if(json.number == date){
+								console.log("일치하는 날짜는 ", date);
+								text=text+json.msg[0].title;
+								//console.log(json.msg[0].title);
+							}
+						}
+					}
+
+				}else{
+					text="";
+				}
+			}else{
+				text="";
+			}
+			cellArray[cnt].div.innerText=text;	
+			cnt++;
+		}
+	}
+}
+
+//다음 달 나오게 처리 
+function prev(){
+	obj.setMonth(obj.getMonth()-1);//기존 객체조작
+	setTitle();//제목변경
+	setText();//셀에 내용 변경
+}
+function next(){
+	obj.setMonth(obj.getMonth()+1);//기존 객체조작
+	setTitle();//제목변경
+	setText();//셀에 내용 변경
+}
+
+function openBox(yy,mm,dd){
+	input_year.value=yy;
+	input_month.value=mm;
+	input_date.value=dd;
+
+	box.style.display="block";	
+}
+function regist(){
+	holyday.push({
+		"year":input_year.value,
+		"month":parseInt(input_month.value)-1,
+		"number":input_date.value,
+		"msg":[
+			{
+				"title":input_title.value,
+				"memo":memo.value
+			}		
+		]
+	});
+	closeBox();	
+
+	//해당 셀에 반영하기
+	setText();
+
+}
+function closeBox(){
+	box.style.display="none";
+}
+
+addEventListener("load", function(){
+	init();
+});
+</script>
+</head>
+<body>
+	<div class="wrapper">
+		<div class="up">
+			<div id="bt_prev" onClick="prev()">◀</div>
+			<div id="title">2018 /12</div>
+			<div id="bt_next" onClick="next()">▶</div>
+		</div>	
+		<div id="content">
+			<div id="box">
+				<input type="text" id="input_year" size="15"/>
+				<input type="text" id="input_month" size="8"/>
+				<input type="text" id="input_date" size="8"/>
+				<p/>
+				<input type="text" id="input_title" placeholder="제목 입력"/>
+				<p/>
+				<textarea id="memo" placeholder="내용입력"></textarea>
+				<p/>
+				<button onClick="regist()">등록하기</button>
+				<button onClick="closeBox()">닫기</button>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
