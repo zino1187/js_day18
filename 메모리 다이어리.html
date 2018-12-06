@@ -35,16 +35,58 @@
 #content{
 	width:100%;
 	height:600px;
+	position:relative;
 }
+#box{
+	width:70%;
+	height:60%;
+	position:absolute;
+	left:15%;
+	top:20%;
+	background:skyblue;
+	border-radius:5%;
+	border:5px solid blue;
+	text-align:center;
+	padding-top:20px;
+}
+#box input,textarea{
+	border:3px solid orange;
+	width:85%;
+	height:40px;
+}
+#input_title{
+	
+}
+#memo{
+	height:120px;
+}
+
 </style>
 <script src="./Cell.js"></script>
 <script src="./common.js"></script>
 <script>
 var bt_prev, bt_next, title, content;
+var input_year, input_month, input_date, input_title,memo;
+
 var dayArray=["Sun","Mon","Tue","Wed","Thur","Fri","Sat"];
 var cellArray=[];//생성된 셀들을 보관해 놓아야, 추후 날짜를 출력할
 						//한다거나 조건에 맞는 처리가 가능...
 var obj=new Date(); //현재 날짜 정보를 가진 Date 객체
+
+/*json으로 다이어리의 데이터를 저장한다*/
+var holyday=[
+	/*
+	{
+		"year":2018,
+		"month":5,
+		"number":13,
+		"msg":[
+			"title":"점심미팅",
+			"detail":"거래 업체와의 저녁약속(매우중요)",
+		]
+	}
+	*/
+];
 
 function init(){
 	bt_prev=document.getElementById("bt_prev");
@@ -135,7 +177,20 @@ addEventListener("load", function(){
 			<div id="title">2018 /12</div>
 			<div id="bt_next" onClick="next()">▶</div>
 		</div>	
-		<div id="content"></div>
+		<div id="content">
+			<div id="box">
+				<input type="text" value="2018" id="input_year" style="width:26%"/>
+				<input type="text" value="12" id="input_month" style="width:26%"/>
+				<input type="text" value="13" id="input_date" style="width:26%"/>
+				<p/>
+				<input type="text" placeholder="제목을 입력하세요" id="input_title"/>
+				<p/>
+				<textarea placeholder="상세 내용 입력" id="memo"></textarea>	
+				<p/>
+				<button>등록</button>
+				<button>닫기</button>
+			</div>
+		</div>
 	</div>
 </body>
 </html>
