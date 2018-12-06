@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>json 다루기</title>
+<script>
+//json 변수 key , 값 value 
+//key-value의 쌍으로 된 (map)맵형식
+//value 에 올수 있는 데이터의 종류는? 문자,숫자,논리값
+//                                            객체
+var holyday=[
+	{
+		"year":2017, 
+		"month":4,
+		"dayoff":[
+			{
+				"title":"어린이날",
+				"number":5
+			},
+			{
+				"title":"어버이날",
+				"number":8
+			}
+		]
+	},
+	{
+		"year":2018, 
+		"month":11,
+		"dayoff":[
+			{
+				"title":"노동절",
+				"number":11
+			},
+			{
+				"title":"크리스마스",
+				"number":25
+			}
+		]
+	}
+];
+//원하는 연도를 입력받아, 해당 연도의 달들을 대상으로 
+//쉬는날을 모두 출력하시오..
+//5월 ~~~~
+//12월 ~~~~~
+var y=parseInt(prompt("원하는 연도를 입력하세요"));
+
+//입력한 연도가 json 배열내에 있는지부터 조사한다..
+//json에 들어갈 연도가 많을 수 있으므로, 또는 그 수를 예측할 수 없으므로
+//반복문으로 처리해야 한다..
+for(var i=0;i<holyday.length;i++){
+	if(holyday[i].year==y){ //입력한 값이 발견되었다면...
+		//년도가 결정되었다면, 그 연도 안의 월을 대상으로 조사...
+		//조사 범위 0~11
+		for(var m=0;m<12;m++){
+			if(m==holyday[i].month){//일치하는 월이 있다면..
+				//dayoff 조차도 배열로 이루어져 있기 때문에...
+				for(var d=0;d<holyday[i].dayoff.length;d++){
+					document.write((m+1)+"월의 쉬는 날은 "+holyday[i].dayoff[d].title+"<br/>");
+				}
+			}		
+		}
+	}
+}
+
+//반복문을 이용하여 12월의 쉬는날을 출력하시오
+for(var i=0;i<holyday.dayoff.length;i++){
+	document.write(holyday.dayoff[i].title +"<br/>");
+}
+
+</script>
+</head>
+<body>
+
+</body>
+</html>
